@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>04B44A91-A5F0-486C-9FBC-AEC3507F1E71</string>
+	<key>IDESourceControlProjectName</key>
+	<string>iShoppingList</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DFDA9238E82091526359D9C9B0055374FD6104FD</key>
+		<string>https://bitbucket.org/saveoner92/ishoppinglist.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iShoppingList.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DFDA9238E82091526359D9C9B0055374FD6104FD</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/saveoner92/ishoppinglist.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DFDA9238E82091526359D9C9B0055374FD6104FD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DFDA9238E82091526359D9C9B0055374FD6104FD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iShoppingList</string>
+		</dict>
+	</array>
+</dict>
+</plist>
