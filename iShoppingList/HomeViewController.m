@@ -63,7 +63,7 @@
             NSString *post =[[NSString alloc] initWithFormat:@"username=%@&password=%@",[txtFieldUsername text],[txtFieldPassword text]];
             NSLog(@"PostData: %@",post);
             
-            NSURL *url=[NSURL URLWithString:@"https://"]; // Mettre ici l'url de notre API
+            NSURL *url=[NSURL URLWithString:@"http://appspaces.fr/esgi/shopping_list/account/subscribe.php"]; // Mettre ici l'url de notre API
             
             NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
             

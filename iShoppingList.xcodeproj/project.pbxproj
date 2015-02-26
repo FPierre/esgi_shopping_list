@@ -19,6 +19,9 @@
 		9D1119FA1A9C9A0C006F0414 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D1119EC1A9C9A0C006F0414 /* SBJsonTokeniser.m */; };
 		9D1119FB1A9C9A0C006F0414 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D1119EE1A9C9A0C006F0414 /* SBJsonUTF8Stream.m */; };
 		9D1119FC1A9C9A0C006F0414 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D1119F01A9C9A0C006F0414 /* SBJsonWriter.m */; };
+		9D3788B91A9F3169006E46E1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3788B81A9F3169006E46E1 /* User.m */; };
+		9D3788BC1A9F3191006E46E1 /* ShoppingList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3788BB1A9F3191006E46E1 /* ShoppingList.m */; };
+		9D3788BF1A9F31AC006E46E1 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3788BE1A9F31AC006E46E1 /* Product.m */; };
 		9DB5F8EA1A961B7B00EDF745 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5F8E91A961B7B00EDF745 /* main.m */; };
 		9DB5F8ED1A961B7B00EDF745 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5F8EC1A961B7B00EDF745 /* AppDelegate.m */; };
 		9DB5F8F51A961B7B00EDF745 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DB5F8F41A961B7B00EDF745 /* Images.xcassets */; };
@@ -64,6 +67,12 @@
 		9D1119EE1A9C9A0C006F0414 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		9D1119EF1A9C9A0C006F0414 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		9D1119F01A9C9A0C006F0414 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		9D3788B71A9F3169006E46E1 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		9D3788B81A9F3169006E46E1 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		9D3788BA1A9F3191006E46E1 /* ShoppingList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingList.h; sourceTree = "<group>"; };
+		9D3788BB1A9F3191006E46E1 /* ShoppingList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingList.m; sourceTree = "<group>"; };
+		9D3788BD1A9F31AC006E46E1 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		9D3788BE1A9F31AC006E46E1 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		9DB5F8E41A961B7B00EDF745 /* iShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB5F8E81A961B7B00EDF745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DB5F8E91A961B7B00EDF745 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -159,6 +168,12 @@
 				9DB5F90D1A961E2200EDF745 /* HomeViewController.h */,
 				9DB5F90E1A961E2200EDF745 /* HomeViewController.m */,
 				9DB5F90F1A961E2200EDF745 /* HomeViewController.xib */,
+				9D3788B71A9F3169006E46E1 /* User.h */,
+				9D3788B81A9F3169006E46E1 /* User.m */,
+				9D3788BA1A9F3191006E46E1 /* ShoppingList.h */,
+				9D3788BB1A9F3191006E46E1 /* ShoppingList.m */,
+				9D3788BD1A9F31AC006E46E1 /* Product.h */,
+				9D3788BE1A9F31AC006E46E1 /* Product.m */,
 			);
 			path = iShoppingList;
 			sourceTree = "<group>";
@@ -289,8 +304,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D3788B91A9F3169006E46E1 /* User.m in Sources */,
 				9DB5F8ED1A961B7B00EDF745 /* AppDelegate.m in Sources */,
 				9D1119FC1A9C9A0C006F0414 /* SBJsonWriter.m in Sources */,
+				9D3788BF1A9F31AC006E46E1 /* Product.m in Sources */,
 				9DB5F8EA1A961B7B00EDF745 /* main.m in Sources */,
 				9D1119FA1A9C9A0C006F0414 /* SBJsonTokeniser.m in Sources */,
 				9D1119F11A9C9A0C006F0414 /* NSObject+SBJson.m in Sources */,
@@ -302,6 +319,7 @@
 				9D1119F81A9C9A0C006F0414 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				9D1119F91A9C9A0C006F0414 /* SBJsonStreamWriterState.m in Sources */,
 				9D1119FB1A9C9A0C006F0414 /* SBJsonUTF8Stream.m in Sources */,
+				9D3788BC1A9F3191006E46E1 /* ShoppingList.m in Sources */,
 				9DB5F9101A961E2200EDF745 /* HomeViewController.m in Sources */,
 				9D1119F51A9C9A0C006F0414 /* SBJsonStreamParserAdapter.m in Sources */,
 			);
