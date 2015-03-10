@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "SBJson.h"
+#import "SignUpViewController.h"
 
 @interface HomeViewController ()
 
@@ -22,6 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -52,12 +54,11 @@
 - (IBAction)btnLogin:(id)sender {
 }
 
-- (IBAction)btnSignUp:(id)sender {
-}
 - (IBAction)loginClicked:(id)sender {
     @try {
         
-        if([[txtFieldUsername text] isEqualToString:@""] || [[txtFieldPassword text] isEqualToString:@""] ) {
+        if([[txtFieldUsername text] isEqualToString:@""] || [[txtFieldPassword text] isEqualToString:@""] )
+        {
             [self alertStatus:@"Please enter both Username and Password" :@"Login Failed!"];
         } else {
             NSString *post =[[NSString alloc] initWithFormat:@"username=%@&password=%@",[txtFieldUsername text],[txtFieldPassword text]];
@@ -117,8 +118,13 @@
     }
 }
 
-- (IBAction)signUpClicked:(id)sender {
+- (IBAction)onTouchSignUp:(id)sender {
+    SignUpViewController* formViewController = [SignUpViewController new];
+    //formViewController.delegate = self;
+    [self.navigationController pushViewController:formViewController animated:YES];
 }
+
+
 
 - (IBAction)backgroundClick:(id)sender {
   //  [txtFieldUsername resignFirstResponder];

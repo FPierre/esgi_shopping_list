@@ -22,6 +22,8 @@
 		9D3788B91A9F3169006E46E1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3788B81A9F3169006E46E1 /* User.m */; };
 		9D3788BC1A9F3191006E46E1 /* ShoppingList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3788BB1A9F3191006E46E1 /* ShoppingList.m */; };
 		9D3788BF1A9F31AC006E46E1 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D3788BE1A9F31AC006E46E1 /* Product.m */; };
+		9D8D8AED1AAEF0B70048A883 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8D8AEB1AAEF0B70048A883 /* SignUpViewController.m */; };
+		9D8D8AEE1AAEF0B70048A883 /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D8D8AEC1AAEF0B70048A883 /* SignUpViewController.xib */; };
 		9DB5F8EA1A961B7B00EDF745 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5F8E91A961B7B00EDF745 /* main.m */; };
 		9DB5F8ED1A961B7B00EDF745 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5F8EC1A961B7B00EDF745 /* AppDelegate.m */; };
 		9DB5F8F51A961B7B00EDF745 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DB5F8F41A961B7B00EDF745 /* Images.xcassets */; };
@@ -73,6 +75,9 @@
 		9D3788BB1A9F3191006E46E1 /* ShoppingList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingList.m; sourceTree = "<group>"; };
 		9D3788BD1A9F31AC006E46E1 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
 		9D3788BE1A9F31AC006E46E1 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		9D8D8AEA1AAEF0B70048A883 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		9D8D8AEB1AAEF0B70048A883 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		9D8D8AEC1AAEF0B70048A883 /* SignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
 		9DB5F8E41A961B7B00EDF745 /* iShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB5F8E81A961B7B00EDF745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DB5F8E91A961B7B00EDF745 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -174,6 +179,9 @@
 				9D3788BB1A9F3191006E46E1 /* ShoppingList.m */,
 				9D3788BD1A9F31AC006E46E1 /* Product.h */,
 				9D3788BE1A9F31AC006E46E1 /* Product.m */,
+				9D8D8AEA1AAEF0B70048A883 /* SignUpViewController.h */,
+				9D8D8AEB1AAEF0B70048A883 /* SignUpViewController.m */,
+				9D8D8AEC1AAEF0B70048A883 /* SignUpViewController.xib */,
 			);
 			path = iShoppingList;
 			sourceTree = "<group>";
@@ -286,6 +294,7 @@
 			files = (
 				9DB5F8F81A961B7B00EDF745 /* LaunchScreen.xib in Resources */,
 				9DB5F8F51A961B7B00EDF745 /* Images.xcassets in Resources */,
+				9D8D8AEE1AAEF0B70048A883 /* SignUpViewController.xib in Resources */,
 				9DB5F9111A961E2200EDF745 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +317,7 @@
 				9DB5F8ED1A961B7B00EDF745 /* AppDelegate.m in Sources */,
 				9D1119FC1A9C9A0C006F0414 /* SBJsonWriter.m in Sources */,
 				9D3788BF1A9F31AC006E46E1 /* Product.m in Sources */,
+				9D8D8AED1AAEF0B70048A883 /* SignUpViewController.m in Sources */,
 				9DB5F8EA1A961B7B00EDF745 /* main.m in Sources */,
 				9D1119FA1A9C9A0C006F0414 /* SBJsonTokeniser.m in Sources */,
 				9D1119F11A9C9A0C006F0414 /* NSObject+SBJson.m in Sources */,

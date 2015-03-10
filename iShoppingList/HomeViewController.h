@@ -12,7 +12,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtFieldUsername;
 @property (weak, nonatomic) IBOutlet UITextField *txtFieldPassword;
 - (IBAction)loginClicked:(id)sender;
-- (IBAction)signUpClicked:(id)sender;
+- (IBAction)onTouchSignUp:(id)sender;
+
 - (IBAction)backgroundClick:(id)sender;
 
 @end
