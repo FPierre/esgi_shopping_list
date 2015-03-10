@@ -15,7 +15,7 @@
 @end
 
 @implementation HomeViewController
-@synthesize txtFieldUsername;
+@synthesize txtFieldEmail;
 @synthesize txtFieldPassword;
 
 
@@ -55,67 +55,64 @@
 }
 
 - (IBAction)loginClicked:(id)sender {
-    @try {
-        
-        if([[txtFieldUsername text] isEqualToString:@""] || [[txtFieldPassword text] isEqualToString:@""] )
+        if([self.txtFieldEmail.text isEqualToString:@""] || [self.txtFieldPassword.text isEqualToString:@""] )
         {
             [self alertStatus:@"Please enter both Username and Password" :@"Login Failed!"];
         } else {
-            NSString *post =[[NSString alloc] initWithFormat:@"username=%@&password=%@",[txtFieldUsername text],[txtFieldPassword text]];
-            NSLog(@"PostData: %@",post);
-            
-            NSURL *url=[NSURL URLWithString:@"http://appspaces.fr/esgi/shopping_list/account/subscribe.php"]; // Mettre ici l'url de notre API
-            
-            NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-            
-            NSString *postLength = [NSString stringWithFormat:@"%ld", [postData length]];
-            
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-            [request setURL:url];
-            [request setHTTPMethod:@"POST"];
-            [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-            [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-            [request setHTTPBody:postData];
-            
-            //[NSURLRequest setAllowsAnyHTTPSCertificate:YES forHost:[url host]];
-            
-            NSError *error = [[NSError alloc] init];
-            NSHTTPURLResponse *response = nil;
-            NSData *urlData=[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-            
-            NSLog(@"Response code: %ld", [response statusCode]);
-            if ([response statusCode] >=200 && [response statusCode] <300)
-            {
-                NSString *responseData = [[NSString alloc]initWithData:urlData encoding:NSUTF8StringEncoding];
-                NSLog(@"Response ==> %@", responseData);
-                
-                SBJsonParser *jsonParser = [SBJsonParser new];
-                NSDictionary *jsonData = (NSDictionary *) [jsonParser objectWithString:responseData error:nil];
-                NSLog(@"%@",jsonData);
-                NSInteger success = [(NSNumber *) [jsonData objectForKey:@"success"] integerValue];
-                NSLog(@"%ld",success);
-                if(success == 1)
-                {
+                        // on créer l'url
+            NSURL* URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/account/login.php?email=%@&password=%@", self.txtFieldEmail.text , self.txtFieldPassword.text]];
+            NSURLRequest* requestLogin=[NSURLRequest requestWithURL:URL];
+            NSError* error = nil;
+            NSData* data = [NSURLConnection sendSynchronousRequest:requestLogin returningResponse:nil error:&error];
+            if(!error) {
+                NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSData* jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+                NSString* codeReturn = [jsonDict objectForKey:@"code"];
+                if( [codeReturn  isEqualToString:@"0"]) {
                     NSLog(@"Login SUCCESS");
+                    
+
+                    //On créer le user
+                    User* newUser = [User new];
+                    newUser.email = [jsonDict objectForKey:@"email"];
+                    newUser.token = [jsonDict objectForKey:@"token"];
+                    
+                    //On enregistre
+                    [self createSessionWithToken:newUser];
+                    
+                    
+                    //Redirection si loggué
                     [self alertStatus:@"Logged in Successfully." :@"Login Success!"];
+                    //HomeViewController* formViewController = [HomeViewController new];
+                    //[self.navigationController pushViewController:formViewController animated:YES];
                     
                 } else {
+                    NSString *errorMessage = nil;
+                    UITextField *errorField;
                     
-                    NSString *error_msg = (NSString *) [jsonData objectForKey:@"error_message"];
-                    [self alertStatus:error_msg :@"Login Failed!"];
+                        errorMessage = @"Login Failed!";
+                        errorField = self.txtFieldEmail;
+                    
+                    if (errorMessage) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        [alert show];
+                        [errorField becomeFirstResponder];
+                    }
                 }
-                
-            } else {
-                if (error) NSLog(@"Error: %@", error);
-                [self alertStatus:@"Connection Failed" :@"Login Failed!"];
             }
         }
-    }
-    @catch (NSException * e) {
-        NSLog(@"Exception: %@", e);
-        [self alertStatus:@"Login Failed." :@"Login Failed!"];
-    }
+}
+
+- (void) createSessionWithToken:(User* ) user{
+[NSKeyedArchiver archiveRootObject:user toFile:[self filePath]];
+}
+
+// Retourne le chemin du fichier
+- (NSString*) filePath {
+    NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentPath = [documentPaths objectAtIndex:0];
+    return [documentPath stringByAppendingPathComponent:@"session.archive"];
 }
 
 - (IBAction)onTouchSignUp:(id)sender {

@@ -6,8 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
+                <outlet property="txtFieldEmail" destination="Do0-vU-tTg" id="1nC-Qd-Kc3"/>
                 <outlet property="txtFieldPassword" destination="qxE-m3-gG8" id="nYw-F3-eVz"/>
-                <outlet property="txtFieldUsername" destination="Do0-vU-tTg" id="35S-DJ-2bc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" id="Do0-vU-tTg">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="Do0-vU-tTg">
                     <rect key="frame" x="108" y="108" width="105" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -69,7 +69,7 @@
             <connections>
                 <action selector="backgroundClick:" destination="-1" eventType="touchUpInside" id="fC3-tj-7Gs"/>
             </connections>
-            <point key="canvasLocation" x="-60" y="290"/>
+            <point key="canvasLocation" x="80" y="63"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

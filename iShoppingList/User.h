@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface User : NSObject {
+@interface User : NSObject <NSCoding> {
     @private
     NSString* firstname_;
     NSString* lastname_;
@@ -20,6 +20,9 @@
 @property (nonatomic, strong) NSString* lastname;
 @property (nonatomic, strong) NSString* email;
 @property (nonatomic, strong) NSString* token;
+
+- (id) initWithCoder:(NSCoder  *) aDecoder;
+- (void) encodeWithCoder:(NSCoder *) aCoder;
 
 
 @end

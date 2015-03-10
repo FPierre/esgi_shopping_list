@@ -8,6 +8,7 @@
 
 #import "SignUpViewController.h"
 #import "HomeViewController.h"
+#import "User.h"
 
 @interface SignUpViewController ()
 
@@ -35,12 +36,11 @@
 }
 */
 
-
 - (IBAction)onTouchSubscribe:(id)sender {
     bool isValid = self.isFormDataValid;
     if (isValid == YES) {
                 if(self.lastname.text != nil) {
-            
+            // on créer l'url
             NSURL* URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/account/subscribe.php?email=%@&firstname=%@&password=%@&lastname=%@", self.email.text , self.firstname.text,self.password.text, self.lastname.text]];
             NSURLRequest* requestSubscribe=[NSURLRequest requestWithURL:URL];
             NSError* error = nil;
@@ -49,65 +49,52 @@
                 NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 NSData* jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
                 NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-                NSString* codeRetour = [jsonDict objectForKey:@"code"];
-                if( [codeRetour  isEqualToString:@"0"]) {
+                NSString* codeReturn = [jsonDict objectForKey:@"code"];
+                if( [codeReturn  isEqualToString:@"0"]) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Succes!" message:@"Your account is created" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [alert show];
-                    User* newUser = [User new];
-                    newUser.email = self.email.text;
-                    newUser.firstname = self.firstname.text;
-                    newUser.lastname = self.lastname.text;
-                    newUser.token = [jsonDict objectForKey:@"token"];
-                    HomeViewController* formViewController = [HomeViewController new];
-                    [self.navigationController pushViewController:formViewController animated:YES];
-
-                } else if ([codeRetour isEqualToString:@"1"]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                } else if ([codeRetour isEqualToString:@"2"]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Email already registered" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                } else if ([codeRetour isEqualToString:@"5"]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Internal server error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                }
-                NSLog(@"%@@", str);
-            }
-        } else {
-            NSURL* URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/account/subscribe.php?email=%@&firstname=%@&password=%@", self.email.text , self.firstname.text,self.password.text]];
-            NSURLRequest* requestSubscribe=[NSURLRequest requestWithURL:URL];
-            NSError* error = nil;
-            NSData* data = [NSURLConnection sendSynchronousRequest:requestSubscribe returningResponse:nil error:&error];
-            if(!error) {
-                NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSData* jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
-                NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-                NSString* codeRetour = [jsonDict objectForKey:@"code"];
-                if( [codeRetour  isEqualToString:@"0"]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Succes!" message:@"Your account is created" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                    User* newUser = [User new];
-                    newUser.email = self.email.text;
-                    newUser.firstname = self.firstname.text;
-                    newUser.token = [jsonDict objectForKey:@"token"];
-                    HomeViewController* formViewController = [HomeViewController new];
-                    [self.navigationController pushViewController:formViewController animated:YES];
                     
-                } else if ([codeRetour isEqualToString:@"1"]) {
+                    //On créer le user
+                    User* newUser = [User new];
+                    newUser.email = [jsonDict objectForKey:@"email"];
+                    newUser.firstname = [jsonDict objectForKey:@"firstname"];
+                    newUser.lastname = [jsonDict objectForKey:@"lastname"];
+                    newUser.token = [jsonDict objectForKey:@"token"];
+                    
+                    //On enregistre
+                    [self createSessionWithUser:newUser];
+                    
+                    
+                    //Redirection si loggué
+                    HomeViewController* formViewController = [HomeViewController new];
+                    [self.navigationController pushViewController:formViewController animated:YES];
+
+                } else if ([codeReturn isEqualToString:@"1"]) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [alert show];
-                } else if ([codeRetour isEqualToString:@"2"]) {
+                } else if ([codeReturn isEqualToString:@"2"]) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Email already registered" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [alert show];
-                } else if ([codeRetour isEqualToString:@"5"]) {
+                } else if ([codeReturn isEqualToString:@"5"]) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Internal server error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [alert show];
                 }
                 NSLog(@"%@@", str);
             }
-
         }
     }
+}
+
+- (void) createSessionWithUser:(User* ) user{
+    
+    [NSKeyedArchiver archiveRootObject:user toFile:[self filePath]];
+}
+
+// Retourne le chemin du fichier
+- (NSString*) filePath {
+    NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentPath = [documentPaths objectAtIndex:0];
+    return [documentPath stringByAppendingPathComponent:@"session.archive"];
 }
 
 -(BOOL)isFormDataValid{
