@@ -9,15 +9,107 @@
 #import "ShoppingListViewController.h"
 #import "User.h"
 #import "HomeViewController.h"
+#import "CreateListViewController.h"
+#import "ShoppingList.h"
 
 @interface ShoppingListViewController ()
 
 @end
 
 @implementation ShoppingListViewController
+
 @synthesize helloName;
 @synthesize userToken;
+
 @dynamic User;
+@dynamic lists;
+
+static NSString *const kShoppingListCellId = @"ShoppingListId";
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.title = @"ShoppingList";
+        
+        NSMutableArray *rightButtons = [NSMutableArray new];
+        
+        [rightButtons addObject:[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onTouchAdd)]];
+        [rightButtons addObject:[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit)]];
+        
+        self.navigationItem.rightBarButtonItems = rightButtons;
+    }
+    
+    return self;
+}
+
+- (NSArray *)lists {
+    return lists_;
+}
+
+- (void)setLists:(NSArray *)lists {
+    lists_ = [[NSMutableArray alloc] initWithArray:lists];
+}
+
+- (void)onTouchAdd {
+    CreateListViewController *viewController = [CreateListViewController new];
+    viewController.delegate = self;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)onTouchEdit {
+    self.tableView.editing = !self.tableView.editing;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.lists count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kShoppingListCellId];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kShoppingListCellId];
+    }
+    
+    ShoppingList *list = [self.lists objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = list.name;
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [lists_ removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ShoppingList *list = [self.lists objectAtIndex:indexPath.row];
+    CreateListViewController *viewController = [CreateListViewController new];
+    viewController.list = list;
+    viewController.delegate = self;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    id obj = [lists_ objectAtIndex:sourceIndexPath.row];
+    [lists_ removeObjectAtIndex:sourceIndexPath.row];
+    [lists_ insertObject:obj atIndex:destinationIndexPath.row];
+}
+
+- (void)createListViewControllerDidCreateShoppingList:(ShoppingList *)list {
+    NSLog(@"ICI");
+    NSLog(@"%@", list.name);
+    [lists_ addObject:list];
+    [self.tableView reloadData];
+    [self.navigationController popToViewController:self animated:YES];
+}
+
+- (void)createListViewControllerDidEditShoppingList:(ShoppingList *)list {
+    [self.tableView reloadData];
+    [self.navigationController popToViewController:self animated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -99,14 +191,7 @@
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
+
+
+

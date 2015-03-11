@@ -8,10 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
+#import "CreateListViewController.h"
 
-@interface ShoppingListViewController : UIViewController
+@interface ShoppingListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CreateListViewControllerDelegate> {
+    
+@private
+    NSMutableArray *lists_;
+    
+}
+
 @property (nonatomic, strong) User* User;
 @property (weak, nonatomic) IBOutlet UILabel *helloName;
 @property (weak, nonatomic) IBOutlet UILabel *userToken;
+
+@property (strong, nonatomic) NSArray *lists;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
