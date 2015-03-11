@@ -34,4 +34,17 @@
 }
 
 
+
+/*- (User *) initWithUser:(User *) user {
+    self = [super init];
+    if(self) {
+        self.firstname = user.firstname;
+        self.lastname = user.lastname;
+        self.email = user.email;
+        self.token = user.token;
+    }
+    return self;
+}*/
+
+
 @end

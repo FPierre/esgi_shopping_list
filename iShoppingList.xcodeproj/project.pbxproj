@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D04C97A1AAF9F6B002E20F0 /* CreateListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D04C9781AAF9F6B002E20F0 /* CreateListViewController.m */; };
+		9D04C97B1AAF9F6B002E20F0 /* CreateListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D04C9791AAF9F6B002E20F0 /* CreateListViewController.xib */; };
+		9D0586121AB05F7F00BB7844 /* ShoppingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0586101AB05F7F00BB7844 /* ShoppingListViewController.m */; };
+		9D0586131AB05F7F00BB7844 /* ShoppingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D0586111AB05F7F00BB7844 /* ShoppingListViewController.xib */; };
 		9D1119F11A9C9A0C006F0414 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D1119D91A9C9A0C006F0414 /* NSObject+SBJson.m */; };
 		9D1119F21A9C9A0C006F0414 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D1119DC1A9C9A0C006F0414 /* SBJsonParser.m */; };
 		9D1119F31A9C9A0C006F0414 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D1119DE1A9C9A0C006F0414 /* SBJsonStreamParser.m */; };
@@ -44,6 +48,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D04C9771AAF9F6B002E20F0 /* CreateListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateListViewController.h; sourceTree = "<group>"; };
+		9D04C9781AAF9F6B002E20F0 /* CreateListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateListViewController.m; sourceTree = "<group>"; };
+		9D04C9791AAF9F6B002E20F0 /* CreateListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateListViewController.xib; sourceTree = "<group>"; };
+		9D05860F1AB05F7F00BB7844 /* ShoppingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListViewController.h; sourceTree = "<group>"; };
+		9D0586101AB05F7F00BB7844 /* ShoppingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListViewController.m; sourceTree = "<group>"; };
+		9D0586111AB05F7F00BB7844 /* ShoppingListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingListViewController.xib; sourceTree = "<group>"; };
 		9D1119D81A9C9A0C006F0414 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		9D1119D91A9C9A0C006F0414 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		9D1119DA1A9C9A0C006F0414 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -164,6 +174,9 @@
 		9DB5F8E61A961B7B00EDF745 /* iShoppingList */ = {
 			isa = PBXGroup;
 			children = (
+				9D04C9771AAF9F6B002E20F0 /* CreateListViewController.h */,
+				9D04C9781AAF9F6B002E20F0 /* CreateListViewController.m */,
+				9D04C9791AAF9F6B002E20F0 /* CreateListViewController.xib */,
 				9D1119B11A9C99D6006F0414 /* json */,
 				9DB5F8EB1A961B7B00EDF745 /* AppDelegate.h */,
 				9DB5F8EC1A961B7B00EDF745 /* AppDelegate.m */,
@@ -182,6 +195,9 @@
 				9D8D8AEA1AAEF0B70048A883 /* SignUpViewController.h */,
 				9D8D8AEB1AAEF0B70048A883 /* SignUpViewController.m */,
 				9D8D8AEC1AAEF0B70048A883 /* SignUpViewController.xib */,
+				9D05860F1AB05F7F00BB7844 /* ShoppingListViewController.h */,
+				9D0586101AB05F7F00BB7844 /* ShoppingListViewController.m */,
+				9D0586111AB05F7F00BB7844 /* ShoppingListViewController.xib */,
 			);
 			path = iShoppingList;
 			sourceTree = "<group>";
@@ -293,6 +309,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DB5F8F81A961B7B00EDF745 /* LaunchScreen.xib in Resources */,
+				9D04C97B1AAF9F6B002E20F0 /* CreateListViewController.xib in Resources */,
+				9D0586131AB05F7F00BB7844 /* ShoppingListViewController.xib in Resources */,
 				9DB5F8F51A961B7B00EDF745 /* Images.xcassets in Resources */,
 				9D8D8AEE1AAEF0B70048A883 /* SignUpViewController.xib in Resources */,
 				9DB5F9111A961E2200EDF745 /* HomeViewController.xib in Resources */,
@@ -313,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D0586121AB05F7F00BB7844 /* ShoppingListViewController.m in Sources */,
 				9D3788B91A9F3169006E46E1 /* User.m in Sources */,
 				9DB5F8ED1A961B7B00EDF745 /* AppDelegate.m in Sources */,
 				9D1119FC1A9C9A0C006F0414 /* SBJsonWriter.m in Sources */,
@@ -325,6 +344,7 @@
 				9D1119F31A9C9A0C006F0414 /* SBJsonStreamParser.m in Sources */,
 				9D1119F21A9C9A0C006F0414 /* SBJsonParser.m in Sources */,
 				9D1119F41A9C9A0C006F0414 /* SBJsonStreamParserAccumulator.m in Sources */,
+				9D04C97A1AAF9F6B002E20F0 /* CreateListViewController.m in Sources */,
 				9D1119F61A9C9A0C006F0414 /* SBJsonStreamParserState.m in Sources */,
 				9D1119F81A9C9A0C006F0414 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				9D1119F91A9C9A0C006F0414 /* SBJsonStreamWriterState.m in Sources */,

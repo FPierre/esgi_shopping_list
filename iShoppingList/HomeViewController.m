@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "SBJson.h"
 #import "SignUpViewController.h"
+#import "ShoppingListViewController.h"
 
 @interface HomeViewController ()
 
@@ -68,24 +69,48 @@
                 NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 NSData* jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
                 NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+                NSLog(@"jsonDict:%@", jsonDict);
                 NSString* codeReturn = [jsonDict objectForKey:@"code"];
                 if( [codeReturn  isEqualToString:@"0"]) {
                     NSLog(@"Login SUCCESS");
-                    
-
+                    NSDictionary* result = [jsonDict objectForKey:@"result"];
+                    NSLog(@"result:%@", result);
                     //On créer le user
                     User* newUser = [User new];
-                    newUser.email = [jsonDict objectForKey:@"email"];
-                    newUser.token = [jsonDict objectForKey:@"token"];
+                    newUser.email = [result objectForKey:@"email"];
+                    newUser.token = [result objectForKey:@"token"];
+                    NSLog(@"newUserEmail:%@", newUser.email);
+                    NSLog(@"newUserToken:%@", newUser.token);
                     
                     //On enregistre
-                    [self createSessionWithToken:newUser];
+                    //[self createSessionWithToken:newUser];
+                    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
                     
+                    if (standardUserDefaults) {
+                        [standardUserDefaults setObject:newUser.email forKey:@"email"];
+                        [standardUserDefaults setObject:newUser.token forKey:@"token"];
+                        [standardUserDefaults synchronize];
+                        NSLog(@"Save ok!");
+                    }
+                    
+                    //NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+                    NSString *valEmail = nil;
+                    NSString *valToken = nil;
+                    
+                    
+                    if (standardUserDefaults) {
+                        NSLog(@"standardUserDefaults Ok!");
+                        valEmail = [standardUserDefaults objectForKey:@"email"];
+                        valToken  = [standardUserDefaults objectForKey:@"token"];
+                        NSLog(@"valEmail:%@", valEmail);
+                        NSLog(@"valToken:%@", valToken);
+                    }
+
                     
                     //Redirection si loggué
                     [self alertStatus:@"Logged in Successfully." :@"Login Success!"];
-                    //HomeViewController* formViewController = [HomeViewController new];
-                    //[self.navigationController pushViewController:formViewController animated:YES];
+                    ShoppingListViewController* formViewController = [ShoppingListViewController new];
+                    [self.navigationController pushViewController:formViewController animated:YES];
                     
                 } else {
                     NSString *errorMessage = nil;
@@ -104,9 +129,9 @@
         }
 }
 
-- (void) createSessionWithToken:(User* ) user{
-[NSKeyedArchiver archiveRootObject:user toFile:[self filePath]];
-}
+//- (void) createSessionWithToken:(User* ) user{
+//    [NSKeyedArchiver archiveRootObject:user toFile:[self filePath]];
+//}
 
 // Retourne le chemin du fichier
 - (NSString*) filePath {
