@@ -20,6 +20,6 @@
 
 
 - (IBAction)onTouchSubscribe:(id)sender;
-- (void) createSessionWithUser:(User* ) user;
+- (void) createSessionWithUser:(User* ) newUser;
 
 @end

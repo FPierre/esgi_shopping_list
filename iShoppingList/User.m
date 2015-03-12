@@ -33,7 +33,19 @@
     [aCoder encodeObject:self.token forKey:@"token"];
 }
 
-
+- (User *)createUserWithEmail:(NSString *)email withToken:(NSString *)token withFirstname:(NSString *)firstname withLastname:(NSString *)lastname{
+    User* user = [User new];
+    user.email = email;
+    NSLog(@"user.email%@", user.email);
+    user.token = token;
+    NSLog(@"user.token%@", user.token);
+    user.firstname = firstname;
+    NSLog(@"user.firstanme%@", user.firstname);
+    user.lastname = lastname;
+    NSLog(@"user.lastname%@", user.lastname);
+    
+    return user;
+}
 
 /*- (User *) initWithUser:(User *) user {
     self = [super init];

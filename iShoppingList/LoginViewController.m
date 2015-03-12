@@ -21,10 +21,42 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    if ([self ifSessionActive]) {
+        [self logout];
+    }
     // Do any additional setup after loading the view from its nib.
 }
 
+
+// pour se delog
+- (void) logout {
+    
+    NSLog(@"Logout");
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    NSLog(@"Done");
+    LoginViewController* loginView = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    NSMutableArray *viewControllerArray = [self.navigationController.viewControllers mutableCopy];
+    [viewControllerArray removeAllObjects];
+    [viewControllerArray addObject:loginView];
+    [self.navigationController setViewControllers:viewControllerArray animated:YES];
+    
+}
+
+- (BOOL)ifSessionActive{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    if (standardUserDefaults) {
+        NSLog(@"standardUserDefaults Ok!");
+        if([standardUserDefaults objectForKey:@"email"] == nil || [standardUserDefaults objectForKey:@"token"] == nil) {
+            return false;
+        } else
+            return true;
+    } else {
+        return -1;
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -60,22 +92,27 @@
         {
             [self alertStatus:@"Please enter both Username and Password" :@"Login Failed!"];
         } else {
-                        // on créer l'url
+            // on créer l'url avec les parametres
             NSURL* URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/account/login.php?email=%@&password=%@", self.txtFieldEmail.text , self.txtFieldPassword.text]];
+            // On lance la requete
             NSURLRequest* requestLogin=[NSURLRequest requestWithURL:URL];
             NSError* error = nil;
+            // On recuperer les donnees de retour
             NSData* data = [NSURLConnection sendSynchronousRequest:requestLogin returningResponse:nil error:&error];
             if(!error) {
+                // On parse le JSON
                 NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 NSData* jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
                 NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
                 NSLog(@"jsonDict:%@", jsonDict);
+                // On recupere le code retour de la requete (code)
                 NSString* codeReturn = [jsonDict objectForKey:@"code"];
                 if( [codeReturn  isEqualToString:@"0"]) {
                     NSLog(@"Login SUCCESS");
+                    // On recupere le result de la requete (result)
                     NSDictionary* result = [jsonDict objectForKey:@"result"];
                     NSLog(@"result:%@", result);
-                    //On créer le user
+                    //On créer le user avec le result recupere
                     User* newUser = [User new];
                     newUser.email = [result objectForKey:@"email"];
                     newUser.token = [result objectForKey:@"token"];
@@ -83,28 +120,7 @@
                     NSLog(@"newUserToken:%@", newUser.token);
                     
                     //On enregistre
-                    //[self createSessionWithToken:newUser];
-                    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-                    
-                    if (standardUserDefaults) {
-                        [standardUserDefaults setObject:newUser.email forKey:@"email"];
-                        [standardUserDefaults setObject:newUser.token forKey:@"token"];
-                        [standardUserDefaults synchronize];
-                        NSLog(@"Save ok!");
-                    }
-                    
-                    //NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-                    NSString *valEmail = nil;
-                    NSString *valToken = nil;
-                    
-                    
-                    if (standardUserDefaults) {
-                        NSLog(@"standardUserDefaults Ok!");
-                        valEmail = [standardUserDefaults objectForKey:@"email"];
-                        valToken  = [standardUserDefaults objectForKey:@"token"];
-                        NSLog(@"valEmail:%@", valEmail);
-                        NSLog(@"valToken:%@", valToken);
-                    }
+                    [self createSessionWithUser:newUser];
 
                     
                     //Redirection si loggué
@@ -129,9 +145,6 @@
         }
 }
 
-//- (void) createSessionWithToken:(User* ) user{
-//    [NSKeyedArchiver archiveRootObject:user toFile:[self filePath]];
-//}
 
 // Retourne le chemin du fichier
 - (NSString*) filePath {
@@ -142,11 +155,29 @@
 
 - (IBAction)onTouchSignUp:(id)sender {
     SignUpViewController* formViewController = [SignUpViewController new];
-    //formViewController.delegate = self;
     [self.navigationController pushViewController:formViewController animated:YES];
 }
 
-
+//Permet de creer la session avec le user en parametre
+- (void) createSessionWithUser:(User* ) newUser{
+    
+    
+    //On enregistre
+    NSLog(@"email:%@, token:%@, fname:%@, lname:%@", newUser.email, newUser.token, newUser.firstname, newUser.lastname);
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setObject:newUser.email forKey:@"email"];
+        NSLog(@"email done : %@", newUser.email);
+        [standardUserDefaults setObject:newUser.token forKey:@"token"];
+        [standardUserDefaults setObject:newUser.firstname forKey:@"firstname"];
+        [standardUserDefaults setObject:newUser.lastname forKey:@"lastname"];
+        [standardUserDefaults synchronize];
+        NSLog(@"Save ok!");
+    }
+    
+}
 
 - (IBAction)backgroundClick:(id)sender {
   //  [txtFieldUsername resignFirstResponder];

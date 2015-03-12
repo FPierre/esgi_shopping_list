@@ -19,7 +19,6 @@
 @implementation ShoppingListViewController
 
 @synthesize helloName;
-@synthesize userToken;
 
 @dynamic User;
 @dynamic lists;
@@ -122,39 +121,51 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // On recuper le standUserDefaults
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    // On initialise les vatiables pour recuperer les valeurs du standarUserDefaults
     NSString *valEmail = @"0";
     NSString *valToken = @"0";
+    NSString *valFirstName = @"0";
+    NSString *valLastName = @"0";
     
     
-    if (standardUserDefaults && [valEmail isEqualToString:@"0"] && [valToken  isEqualToString: @"0"]) {
+    // On test si il a bien ete cree
+    if (standardUserDefaults) {
+        // On recupere les donnees
         NSLog(@"standardUserDefaults Ok!");
         valEmail = [standardUserDefaults objectForKey:@"email"];
         valToken  = [standardUserDefaults objectForKey:@"token"];
-        NSLog(@"valEmail:%@", valEmail);
-        NSLog(@"valToken:%@", valToken);
+        valFirstName = [standardUserDefaults objectForKey:@"firstname"];
+        valLastName  = [standardUserDefaults objectForKey:@"lastname"];
     }
-    User* user = [self createUserWithEmail:valEmail withToken:valToken];
-    if (user.token != nil) {
-        self.userToken.text = user.token;
+    // On verifie que le token est bien present sinon erreur
+    if ([valToken isEqualToString:@"0"]) {
+        // ALERT ERROR probleme lors de l'authentification
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Erreur lors de la recuperation du token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }
-    if (user.email != nil) {
-        self.helloName.text = (NSMutableString *)(@"Hi ! %@", user.email);
+    // On cree un nouvel User et on lui copy les donnees
+    User * newUser = [User new];
+    newUser = [newUser createUserWithEmail:valEmail withToken:valToken withFirstname:valFirstName withLastname:valLastName];
+    NSLog(@"newUser.email:%@",newUser.email);
+    NSLog(@"newUser.token : %@",newUser.token);
+    NSLog(@"newUser.firstname : %@",newUser.firstname);
+    NSLog(@"newUser.lastname : %@",newUser.lastname);
+
+    // On test si il y a un nom et on le met dans le message
+    if (newUser.firstname != nil) {
+        NSMutableString* theString = [NSMutableString string];
+        [theString appendFormat:@"Hi !  %@",newUser.firstname];
+        self.helloName.text = theString;
+    } else {
+        self.helloName.text = (NSMutableString *)(@"Hi You!");
+
     }
     NSLog(@"%@",self.helloName.text);
-    NSLog(@"%@",self.userToken.text);
     // Do any additional setup after loading the view from its nib.
 
     
-}
-
-- (User *)createUserWithEmail:(NSString *)email withToken:(NSString *)token {
-    User* user = [User new];
-    user.email = email;
-    NSLog(@"user.email%@", user.email);
-    user.token = token;
-    NSLog(@"user.token%@", user.token);
-    return user;
 }
 
 - (BOOL)ifSessionActive{
@@ -175,18 +186,6 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     // Dispose of any resources that can be recreated.
 }
 
-/*- (User *) user {
-    NSLog(@"%@", [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]]);
-        self.User = [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]];
-    return self.User;
-}
-
-// Retourne le chemin du fichier
-- (NSString*) filePath {
-    NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentPath = [documentPaths objectAtIndex:0];
-    return [documentPath stringByAppendingPathComponent:@"session.archive"];
-}*/
 
 // pour se delog
 - (void) logout {
