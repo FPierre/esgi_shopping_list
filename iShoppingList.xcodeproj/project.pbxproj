@@ -33,8 +33,8 @@
 		9DB5F8F51A961B7B00EDF745 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DB5F8F41A961B7B00EDF745 /* Images.xcassets */; };
 		9DB5F8F81A961B7B00EDF745 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DB5F8F61A961B7B00EDF745 /* LaunchScreen.xib */; };
 		9DB5F9041A961B7B00EDF745 /* iShoppingListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5F9031A961B7B00EDF745 /* iShoppingListTests.m */; };
-		9DB5F9101A961E2200EDF745 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5F90E1A961E2200EDF745 /* HomeViewController.m */; };
-		9DB5F9111A961E2200EDF745 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DB5F90F1A961E2200EDF745 /* HomeViewController.xib */; };
+		9DB5F9101A961E2200EDF745 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5F90E1A961E2200EDF745 /* LoginViewController.m */; };
+		9DB5F9111A961E2200EDF745 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DB5F90F1A961E2200EDF745 /* LoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,9 +98,9 @@
 		9DB5F8FD1A961B7B00EDF745 /* iShoppingListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iShoppingListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB5F9021A961B7B00EDF745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DB5F9031A961B7B00EDF745 /* iShoppingListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iShoppingListTests.m; sourceTree = "<group>"; };
-		9DB5F90D1A961E2200EDF745 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		9DB5F90E1A961E2200EDF745 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		9DB5F90F1A961E2200EDF745 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		9DB5F90D1A961E2200EDF745 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		9DB5F90E1A961E2200EDF745 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		9DB5F90F1A961E2200EDF745 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,9 +183,9 @@
 				9DB5F8F41A961B7B00EDF745 /* Images.xcassets */,
 				9DB5F8F61A961B7B00EDF745 /* LaunchScreen.xib */,
 				9DB5F8E71A961B7B00EDF745 /* Supporting Files */,
-				9DB5F90D1A961E2200EDF745 /* HomeViewController.h */,
-				9DB5F90E1A961E2200EDF745 /* HomeViewController.m */,
-				9DB5F90F1A961E2200EDF745 /* HomeViewController.xib */,
+				9DB5F90D1A961E2200EDF745 /* LoginViewController.h */,
+				9DB5F90E1A961E2200EDF745 /* LoginViewController.m */,
+				9DB5F90F1A961E2200EDF745 /* LoginViewController.xib */,
 				9D3788B71A9F3169006E46E1 /* User.h */,
 				9D3788B81A9F3169006E46E1 /* User.m */,
 				9D3788BA1A9F3191006E46E1 /* ShoppingList.h */,
@@ -313,7 +313,7 @@
 				9D0586131AB05F7F00BB7844 /* ShoppingListViewController.xib in Resources */,
 				9DB5F8F51A961B7B00EDF745 /* Images.xcassets in Resources */,
 				9D8D8AEE1AAEF0B70048A883 /* SignUpViewController.xib in Resources */,
-				9DB5F9111A961E2200EDF745 /* HomeViewController.xib in Resources */,
+				9DB5F9111A961E2200EDF745 /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +350,7 @@
 				9D1119F91A9C9A0C006F0414 /* SBJsonStreamWriterState.m in Sources */,
 				9D1119FB1A9C9A0C006F0414 /* SBJsonUTF8Stream.m in Sources */,
 				9D3788BC1A9F3191006E46E1 /* ShoppingList.m in Sources */,
-				9DB5F9101A961E2200EDF745 /* HomeViewController.m in Sources */,
+				9DB5F9101A961E2200EDF745 /* LoginViewController.m in Sources */,
 				9D1119F51A9C9A0C006F0414 /* SBJsonStreamParserAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

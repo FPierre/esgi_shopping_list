@@ -8,7 +8,7 @@
 
 #import "ShoppingListViewController.h"
 #import "User.h"
-#import "HomeViewController.h"
+#import "LoginViewController.h"
 #import "CreateListViewController.h"
 #import "ShoppingList.h"
 
@@ -167,7 +167,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     // Dispose of any resources that can be recreated.
 }
 
-- (User *) user {
+/*- (User *) user {
     NSLog(@"%@", [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]]);
         self.User = [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]];
     return self.User;
@@ -178,7 +178,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* documentPath = [documentPaths objectAtIndex:0];
     return [documentPath stringByAppendingPathComponent:@"session.archive"];
-}
+}*/
 
 // pour se delog
 - (void) logout {

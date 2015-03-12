@@ -7,7 +7,7 @@
 //
 
 #import "SignUpViewController.h"
-#import "HomeViewController.h"
+#import "ShoppingListViewController.h"
 #import "User.h"
 
 @interface SignUpViewController ()
@@ -66,7 +66,7 @@
                     
                     
                     //Redirection si loggué
-                    HomeViewController* formViewController = [HomeViewController new];
+                    ShoppingListViewController* formViewController = [ShoppingListViewController new];
                     [self.navigationController pushViewController:formViewController animated:YES];
 
                 } else if ([codeReturn isEqualToString:@"1"]) {

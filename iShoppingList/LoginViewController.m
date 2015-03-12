@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Nicolas Save. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "LoginViewController.h"
 #import "SBJson.h"
 #import "SignUpViewController.h"
 #import "ShoppingListViewController.h"
