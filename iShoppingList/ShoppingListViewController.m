@@ -36,6 +36,14 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
         [rightButtons addObject:[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit)]];
         
         self.navigationItem.rightBarButtonItems = rightButtons;
+        
+        NSMutableArray *leftButtons = [NSMutableArray new];
+        //UIBarButtonItemStyleBordered
+        //UIBarButtonSystemItemAction
+        [leftButtons addObject:[[UIBarButtonItem alloc]initWithTitle:@"Logout" style:UIBarButtonSystemItemCancel target:self action:@selector(logout)]];
+        
+        self.navigationItem.leftBarButtonItems = leftButtons;
+        
     }
     
     return self;
@@ -182,12 +190,16 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
 
 // pour se delog
 - (void) logout {
+    
     NSLog(@"Logout");
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     NSLog(@"Done");
-    HomeViewController* formViewController = [HomeViewController new];
-    [self.navigationController pushViewController:formViewController animated:YES];
+    LoginViewController* loginView = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    NSMutableArray *viewControllerArray = [self.navigationController.viewControllers mutableCopy];
+    [viewControllerArray removeAllObjects];
+    [viewControllerArray addObject:loginView];
+    [self.navigationController setViewControllers:viewControllerArray animated:YES];
     
 }
 

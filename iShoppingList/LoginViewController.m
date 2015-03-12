@@ -11,11 +11,11 @@
 #import "SignUpViewController.h"
 #import "ShoppingListViewController.h"
 
-@interface HomeViewController ()
+@interface LoginViewController ()
 
 @end
 
-@implementation HomeViewController
+@implementation LoginViewController
 @synthesize txtFieldEmail;
 @synthesize txtFieldPassword;
 

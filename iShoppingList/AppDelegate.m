@@ -20,7 +20,7 @@
     // Override point for customization after application launch.
     UIWindow* window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    HomeViewController* homeViewController = [HomeViewController new];
+    LoginViewController* homeViewController = [LoginViewController new];
     window.rootViewController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     [window makeKeyAndVisible];
     self.window = window;
