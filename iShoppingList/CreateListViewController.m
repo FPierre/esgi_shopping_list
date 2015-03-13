@@ -52,15 +52,16 @@
             
             if ([codeReturn isEqualToString:@"0"]) {
                 ShoppingList *newList = [ShoppingList new];
+                NSDictionary *result = [jsonDict objectForKey:@"result"];
+
+                newList.name = [result objectForKey:@"name"];
                 
-                newList.name = [jsonDict objectForKey:@"name"];
-                NSLog(@"%@", jsonDict);
-                NSLog(@"%@", newList);
                 if ([self.delegate respondsToSelector:@selector(createListViewControllerDidCreateShoppingList:)]) {
+                    NSLog(@"1");
                     [self.delegate createListViewControllerDidCreateShoppingList:newList];
                 }
             }
-            else if ([codeReturn isEqualToString:@"1"]) {
+            /*else if ([codeReturn isEqualToString:@"1"]) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
             }
@@ -73,7 +74,7 @@
                 [alert show];
             }
             
-            NSLog(@"%@@", str);
+            NSLog(@"%@@", str);*/
         }
     }
     

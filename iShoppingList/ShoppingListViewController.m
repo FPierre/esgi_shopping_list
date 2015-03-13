@@ -106,9 +106,10 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
 }
 
 - (void)createListViewControllerDidCreateShoppingList:(ShoppingList *)list {
-    NSLog(@"ICI");
-    NSLog(@"%@", list.name);
+    NSLog(@"2");
     [lists_ addObject:list];
+    NSLog(@"3");
+    NSLog(@"%@", lists_);
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
 }
@@ -120,6 +121,10 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Initialise la source de données de la liste des ShoppingList
+    NSMutableArray* lists = [NSMutableArray new];
+    self.lists = lists;
     
     // On recuper le standUserDefaults
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
