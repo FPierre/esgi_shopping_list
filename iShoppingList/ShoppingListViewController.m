@@ -137,10 +137,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
 }
 
 - (void)createListViewControllerDidCreateShoppingList:(ShoppingList *)list {
-    NSLog(@"2");
     [lists_ addObject:list];
-    NSLog(@"3");
-    NSLog(@"%@", lists_);
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
 }
@@ -150,12 +147,10 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     [self.navigationController popToViewController:self animated:YES];
 }
 
+// TODO: faire une vrai gestion des erreurs en fonction des codes retour
+// TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Initialise la source de données de la liste des ShoppingList
-    NSMutableArray* lists = [NSMutableArray new];
-    self.lists = lists;
     
     // On recuper le standUserDefaults
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -202,6 +197,41 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     // Do any additional setup after loading the view from its nib.
 
     
+    
+    // Initialise la source de données de la liste des ShoppingList
+    NSMutableArray* lists = [NSMutableArray new];
+    
+    NSLog(@"--0");
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/list.php?token=%@", @"161e936338febc2edc95214098db81a1"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+    NSLog(@"--1");
+    if (!error) {
+        NSLog(@"--2");
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+        NSString *codeReturn = [jsonDict objectForKey:@"code"];
+        NSLog(@"%@", str);
+        if ([codeReturn isEqualToString:@"0"]) {
+            NSLog(@"--3");
+            NSArray *resultReturn = [jsonDict objectForKey:@"result"];
+            NSLog(@"%@", resultReturn);
+            for (ShoppingList *list in resultReturn) {
+                NSLog(@"%@", list);
+                [lists_ addObject:list];
+            }
+            
+            self.lists = lists;
+        }
+        else {
+            NSLog(@"--4");
+        }
+    }
+    else {
+        NSLog(@"--5");
+    }
 }
 
 - (BOOL)ifSessionActive{
