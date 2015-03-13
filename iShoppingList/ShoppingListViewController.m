@@ -84,10 +84,41 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     return cell;
 }
 
+// TODO: faire une vrai gestion des erreurs en fonction des codes retour
+// TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [lists_ removeObjectAtIndex:indexPath.row];
-        [self.tableView reloadData];
+        ShoppingList *list = (ShoppingList *)[lists_ objectAtIndex:indexPath.row];
+
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/remove.php?token=%@&id=%@", @"161e936338febc2edc95214098db81a1", [NSString stringWithFormat:@"%lu", (unsigned long)list.Id]]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        NSError *error = nil;
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+    
+        if (!error) {
+            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+            NSString *codeReturn = [jsonDict objectForKey:@"code"];
+        
+            if ([codeReturn isEqualToString:@"0"]) {
+                NSString *resultReturn = [jsonDict objectForKey:@"result"];
+            
+                // Réussite de la suppression
+                if ([resultReturn isEqualToString:@"1"]) {
+                    [lists_ removeObjectAtIndex:indexPath.row];
+                    [self.tableView reloadData];
+                }
+                // Echec de la suppression
+                else if ([resultReturn isEqualToString:@"0"]) {
+                
+                }
+            }
+            /*else if ([codeReturn isEqualToString:@"1"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+             }*/
+        }
     }
 }
 

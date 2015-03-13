@@ -54,6 +54,7 @@
                 ShoppingList *newList = [ShoppingList new];
                 NSDictionary *result = [jsonDict objectForKey:@"result"];
 
+                newList.Id = [result objectForKey:@"id"];
                 newList.name = [result objectForKey:@"name"];
                 
                 if ([self.delegate respondsToSelector:@selector(createListViewControllerDidCreateShoppingList:)]) {
