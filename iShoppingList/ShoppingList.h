@@ -10,13 +10,13 @@
 
 @interface ShoppingList : NSObject {
     @private
-    NSUInteger id_;
+    NSString *id_;
     NSString* name_;
     NSDate* created_date_;
     BOOL completed_;
 }
 
-@property (nonatomic) NSUInteger Id;
+@property (nonatomic, strong) NSString *Id;
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) NSDate* created_date;
 @property (nonatomic) BOOL completed;
