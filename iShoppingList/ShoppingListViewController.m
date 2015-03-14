@@ -88,7 +88,12 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ShoppingList *list = (ShoppingList *)[lists_ objectAtIndex:indexPath.row];
 
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/remove.php?token=%@&id=%@", @"161e936338febc2edc95214098db81a1", [NSString stringWithFormat:@"%lu", (unsigned long)list.Id]]];
+        //NSLog(@"%@", [NSString stringWithFormat:@"%lu", (unsigned long)list.Id]);
+        //NSLog(@"%@", [NSString stringWithFormat:@"%lu", list.Id]);
+        //NSLog(@"%@", [NSString stringWithFormat:@"%ld", list.Id]);
+        //NSLog(@"%@", [[NSNumber numberWithInteger:list.Id] stringValue]);
+        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/remove.php?token=%@&id=%@", @"161e936338febc2edc95214098db81a1", list.Id]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
@@ -98,7 +103,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
             NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
             NSString *codeReturn = [jsonDict objectForKey:@"code"];
-        
+            
             if ([codeReturn isEqualToString:@"0"]) {
                 NSString *resultReturn = [jsonDict objectForKey:@"result"];
             
@@ -135,6 +140,8 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
 }
 
 - (void)createListViewControllerDidCreateShoppingList:(ShoppingList *)list {
+    NSLog(@"%@", list.Id);
+    NSLog(@"%@", list.name);
     [lists_ addObject:list];
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];

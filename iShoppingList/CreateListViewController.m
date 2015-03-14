@@ -53,12 +53,12 @@
             if ([codeReturn isEqualToString:@"0"]) {
                 ShoppingList *newList = [ShoppingList new];
                 NSDictionary *result = [jsonDict objectForKey:@"result"];
-
-                newList.Id = [result objectForKey:@"id"];
-                newList.name = [result objectForKey:@"name"];
                 
+                newList.Id = [result objectForKey:@"id"];
+                //newList.Id = [[result objectForKey:@"id"] integerValue];
+                newList.name = [result objectForKey:@"name"];
+
                 if ([self.delegate respondsToSelector:@selector(createListViewControllerDidCreateShoppingList:)]) {
-                    NSLog(@"1");
                     [self.delegate createListViewControllerDidCreateShoppingList:newList];
                 }
             }
