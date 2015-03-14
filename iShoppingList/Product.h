@@ -10,13 +10,13 @@
 
 @interface Product : NSObject {
     @private
-    NSUInteger id_;
+    NSString *id_;
     NSString* name_;
     NSUInteger quantity_;
     double price_;
 }
 
-@property (nonatomic) NSUInteger Id;
+@property (nonatomic, strong) NSString *Id;
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic) NSUInteger quantity;
 @property (nonatomic) double price;
