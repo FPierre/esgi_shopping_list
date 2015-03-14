@@ -7,10 +7,10 @@
 //
 
 #import "ShoppingListViewController.h"
+#import "ShoppingList.h"
+#import "CreateListViewController.h"
 #import "User.h"
 #import "LoginViewController.h"
-#import "CreateListViewController.h"
-#import "ShoppingList.h"
 
 @interface ShoppingListViewController ()
 
@@ -40,20 +40,22 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
         [leftButtons addObject:[[UIBarButtonItem alloc]initWithTitle:@"Logout" style:UIBarButtonSystemItemCancel target:self action:@selector(logout)]];
         
         self.navigationItem.leftBarButtonItems = leftButtons;
-        
     }
     
     return self;
 }
 
+// Getter
 - (NSArray *)lists {
     return lists_;
 }
 
+// Setter
 - (void)setLists:(NSArray *)lists {
     lists_ = [[NSMutableArray alloc] initWithArray:lists];
 }
 
+// Bouton "+" d'ajout d'une Shopping List
 - (void)onTouchAdd {
     CreateListViewController *viewController = [CreateListViewController new];
     viewController.delegate = self;
@@ -82,16 +84,11 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     return cell;
 }
 
-// TODO: faire une vrai gestion des erreurs en fonction des codes retour
 // TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
+// Suppression d'une ShoppingList
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ShoppingList *list = (ShoppingList *)[lists_ objectAtIndex:indexPath.row];
-
-        //NSLog(@"%@", [NSString stringWithFormat:@"%lu", (unsigned long)list.Id]);
-        //NSLog(@"%@", [NSString stringWithFormat:@"%lu", list.Id]);
-        //NSLog(@"%@", [NSString stringWithFormat:@"%ld", list.Id]);
-        //NSLog(@"%@", [[NSNumber numberWithInteger:list.Id] stringValue]);
         
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/remove.php?token=%@&id=%@", @"161e936338febc2edc95214098db81a1", list.Id]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -104,6 +101,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
             NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
             NSString *codeReturn = [jsonDict objectForKey:@"code"];
             
+            // Si pas d'erreur
             if ([codeReturn isEqualToString:@"0"]) {
                 NSString *resultReturn = [jsonDict objectForKey:@"result"];
             
@@ -114,13 +112,25 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
                 }
                 // Echec de la suppression
                 else if ([resultReturn isEqualToString:@"0"]) {
-                
+                    // Pas de gestion d'erreur
                 }
             }
-            /*else if ([codeReturn isEqualToString:@"1"]) {
+            else if ([codeReturn isEqualToString:@"1"]) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
-             }*/
+            }
+            else if ([codeReturn isEqualToString:@"4"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Invalid token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else if ([codeReturn isEqualToString:@"5"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Internal server error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else if ([codeReturn isEqualToString:@"6"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Unauthorized action" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
         }
     }
 }
@@ -140,8 +150,6 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
 }
 
 - (void)createListViewControllerDidCreateShoppingList:(ShoppingList *)list {
-    NSLog(@"%@", list.Id);
-    NSLog(@"%@", list.name);
     [lists_ addObject:list];
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
