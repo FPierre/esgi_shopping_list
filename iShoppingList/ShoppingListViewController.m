@@ -84,8 +84,8 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     return cell;
 }
 
-// TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
 // Suppression d'une ShoppingList
+// TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ShoppingList *list = (ShoppingList *)[lists_ objectAtIndex:indexPath.row];
@@ -135,6 +135,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     }
 }
 
+// Selection d'une ShoppingList
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ShoppingList *list = [self.lists objectAtIndex:indexPath.row];
     CreateListViewController *viewController = [CreateListViewController new];
@@ -160,7 +161,6 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     [self.navigationController popToViewController:self animated:YES];
 }
 
-// TODO: faire une vrai gestion des erreurs en fonction des codes retour
 // TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -208,10 +208,6 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     }
     NSLog(@"%@",self.helloName.text);
     // Do any additional setup after loading the view from its nib.
-
-    
-    // TODO: remplir correctement la ShoppingList avec les données
-    // TODO: faire une vrai gestion d'erreur
     
     // Initialise la source de données de la liste des ShoppingList
     NSMutableArray* lists = [NSMutableArray new];
@@ -223,7 +219,6 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
 
     if (!error) {
-
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
@@ -237,19 +232,30 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
                 
                 newList.Id = [o objectForKey:@"id"];
                 newList.name = [o objectForKey:@"name"];
+                newList.created_date = [o objectForKey:@"created_date"];
+                newList.completed = [o objectForKey:@"completed"];
                 
                 if ([self respondsToSelector:@selector(createListViewControllerDidCreateShoppingList:)]) {
-                    NSLog(@"DIDCREATE");
                     [self createListViewControllerDidCreateShoppingList:newList];
                 }
             }
         }
-        else {
-            NSLog(@"--4");
+        else if ([codeReturn isEqualToString:@"1"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }
-    }
-    else {
-        NSLog(@"--5");
+        else if ([codeReturn isEqualToString:@"4"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Invalid token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        else if ([codeReturn isEqualToString:@"5"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Internal server error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        else if ([codeReturn isEqualToString:@"6"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Unauthorized action" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }
 }
 
