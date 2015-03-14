@@ -37,8 +37,6 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
         self.navigationItem.rightBarButtonItems = rightButtons;
         
         NSMutableArray *leftButtons = [NSMutableArray new];
-        //UIBarButtonItemStyleBordered
-        //UIBarButtonSystemItemAction
         [leftButtons addObject:[[UIBarButtonItem alloc]initWithTitle:@"Logout" style:UIBarButtonSystemItemCancel target:self action:@selector(logout)]];
         
         self.navigationItem.leftBarButtonItems = leftButtons;
