@@ -39,7 +39,7 @@
 
 - (IBAction)onTouchAdd:(id)sender {
     if (!self.list) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token=%@&name=%@", @"35e2be53f535dbbfd411681ac0e215a1", self.nameTextfield.text]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token=%@&name=%@", @"161e936338febc2edc95214098db81a1", self.nameTextfield.text]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
