@@ -37,9 +37,9 @@
     [super didReceiveMemoryWarning];
 }
 
-// TODO: faire une vrai gestion d'erreur
 // TODO: remplacer le token User en dur dans l'URL
 - (IBAction)onTouchAdd:(id)sender {
+    // Ajout d'une ShoppingList
     if (!self.list) {
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token=%@&name=%@", @"161e936338febc2edc95214098db81a1", self.nameTextfield.text]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -57,50 +57,78 @@
                 NSDictionary *result = [jsonDict objectForKey:@"result"];
                 
                 newList.Id = [result objectForKey:@"id"];
-                //newList.Id = [[result objectForKey:@"id"] integerValue];
                 newList.name = [result objectForKey:@"name"];
 
                 if ([self.delegate respondsToSelector:@selector(createListViewControllerDidCreateShoppingList:)]) {
                     [self.delegate createListViewControllerDidCreateShoppingList:newList];
                 }
             }
-            /*else if ([codeReturn isEqualToString:@"1"]) {
+            else if ([codeReturn isEqualToString:@"1"]) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
             }
-            else if ([codeReturn isEqualToString:@"2"]) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Email already registered" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            else if ([codeReturn isEqualToString:@"4"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Invalid token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
             }
             else if ([codeReturn isEqualToString:@"5"]) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Internal server error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
             }
-            
-            NSLog(@"%@@", str);*/
+            else if ([codeReturn isEqualToString:@"6"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Unauthorized action" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
         }
     }
-    
-    
-    /*
+    // Modification d'une ShoppingList
+    else {
+        self.list.name = self.nameTextfield.text;
      
-     if (self.list) {
-     self.list.name = self.nameTextfield.text;
-     
-     if ([self.delegate respondsToSelector:@selector(createListViewControllerDidEditShoppingList:)]) {
-     [self.delegate createListViewControllerDidEditShoppingList:self.list];
-     }
-     }
-     else {
-     ShoppingList *newList = [ShoppingList new];
-     
-     newList.name = self.nameTextfield.text;
-     
-     if ([self.delegate respondsToSelector:@selector(createListViewControllerDidCreateShoppingList:)]) {
-     [self.delegate createListViewControllerDidCreateShoppingList:newList];
-     }
-     }*/
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/edit.php?token=%@&id=%@&name=%@", @"161e936338febc2edc95214098db81a1", self.list.Id, self.nameTextfield.text]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        NSError *error = nil;
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+        
+        if (!error) {
+            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+            NSString *codeReturn = [jsonDict objectForKey:@"code"];
 
+            // Si pas d'erreur
+            if ([codeReturn isEqualToString:@"0"]) {
+                NSString *resultReturn = [jsonDict objectForKey:@"result"];
+                
+                // Réussite de la modification
+                if ([resultReturn isEqualToString:@"1"]) {
+                    if ([self.delegate respondsToSelector:@selector(createListViewControllerDidEditShoppingList:)]) {
+                        [self.delegate createListViewControllerDidEditShoppingList:self.list];
+                    }
+                }
+                // Echec de la modification
+                else if ([resultReturn isEqualToString:@"0"]) {
+                    // Pas de gestion d'erreur
+                }
+            }
+            else if ([codeReturn isEqualToString:@"1"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else if ([codeReturn isEqualToString:@"4"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Invalid token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else if ([codeReturn isEqualToString:@"5"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Internal server error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else if ([codeReturn isEqualToString:@"6"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Unauthorized action" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+        }
+    }
 }
 
 @end
