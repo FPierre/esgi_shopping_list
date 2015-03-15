@@ -195,7 +195,7 @@ static NSString *const kProductCellId = @"ProductId";
     NSMutableArray* products = [NSMutableArray new];
     self.products = products;
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/list.php?token=%@&id=%@", @"161e936338febc2edc95214098db81a1", @"400"]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/list.php?token=%@&id=%@", [standardUserDefaults objectForKey:@"token"], @"400"]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSError *error = nil;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];

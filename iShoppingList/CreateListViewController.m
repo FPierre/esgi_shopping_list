@@ -39,9 +39,11 @@
 
 // TODO: remplacer le token User en dur dans l'URL
 - (IBAction)onTouchAdd:(id)sender {
+    // recuperation du token du user
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     // Ajout d'une ShoppingList
     if (!self.list) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token=%@&name=%@", @"161e936338febc2edc95214098db81a1", self.nameTextfield.text]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token=%@&name=%@", [standardUserDefaults objectForKey:@"token"], self.nameTextfield.text]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
@@ -85,7 +87,7 @@
     else {
         self.list.name = self.nameTextfield.text;
      
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/edit.php?token=%@&id=%@&name=%@", @"161e936338febc2edc95214098db81a1", self.list.Id, self.nameTextfield.text]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/edit.php?token=%@&id=%@&name=%@", [standardUserDefaults objectForKey:@"token"], self.list.Id, self.nameTextfield.text]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];

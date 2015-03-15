@@ -45,10 +45,12 @@
 // TODO: remplacer le token User en dur dans l'URL
 // TODO: remplacer l'Id ShoppingList en dur dans l'URL
 - (IBAction)onTouchAdd:(id)sender {
+    // On recuper le standUserDefaults
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     if (!self.product) {
         //@TODO voir comment recuperer le token et l'id de la liste
         
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/create.php?token=%@&shopping_list_id=%@&name=%@&quantity=%lu&price=%f", @"161e936338febc2edc95214098db81a1", @"0", self.product.name, self.product.quantity, self.product.price]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/create.php?token=%@&shopping_list_id=%@&name=%@&quantity=%lu&price=%f", [standardUserDefaults objectForKey:@"token"], @"0", self.product.name, self.product.quantity, self.product.price]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];

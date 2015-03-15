@@ -630,28 +630,28 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[CreateProductViewController nameTextField]"
+                  symbolName = "-[CreateProductViewController product]"
                   moduleName = "iShoppingList"
                   urlString = "file:///Users/Save92/Documents/ESGI_4IAM/ios/projetSemestre1/iShoppingList/iShoppingList/CreateProductViewController.h"
-                  timestampString = "448135253.676222"
+                  timestampString = "448136171.738858"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "26"
-                  endingLineNumber = "26"
-                  offsetFromSymbolStart = "16">
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "12">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[CreateProductViewController setNameTextField:]"
+                  symbolName = "-[CreateProductViewController setProduct:]"
                   moduleName = "iShoppingList"
                   urlString = "file:///Users/Save92/Documents/ESGI_4IAM/ios/projetSemestre1/iShoppingList/iShoppingList/CreateProductViewController.h"
-                  timestampString = "448135253.676519"
+                  timestampString = "448136171.739044"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "26"
-                  endingLineNumber = "26"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
                   offsetFromSymbolStart = "20">
                </Location>
             </Locations>
@@ -669,7 +669,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
             endingLineNumber = "73"
-            landmarkName = "-productsTableView:cellForRowAtIndexPath:"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -708,7 +708,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/ShoppingListViewController.m"
@@ -724,7 +724,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/ShoppingListViewController.m"
@@ -740,7 +740,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/ShoppingListViewController.m"
