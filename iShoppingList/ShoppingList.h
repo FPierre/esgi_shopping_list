@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+// Objet ShoppingList
 @interface ShoppingList : NSObject {
     @private
     NSString* id_;

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+// Objet User
 @interface User : NSObject <NSCoding> {
     @private
     NSString* firstname_;
@@ -25,6 +26,6 @@
 - (void) encodeWithCoder:(NSCoder *) aCoder;
 - (User *)createUserWithEmail:(NSString *)email withToken:(NSString *)token withFirstname:(NSString *)firstname withLastname:(NSString *)lastname;
 - (User *) initWithUser:(User *) user;
-
+- (void) logout;
 
 @end

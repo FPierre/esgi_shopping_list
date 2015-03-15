@@ -75,7 +75,7 @@
                     //Redirection si loggué
                     ShoppingListViewController* formViewController = [ShoppingListViewController new];
                     [self.navigationController pushViewController:formViewController animated:YES];
-
+                // Gestion erreur retour de l'API
                 } else if ([codeReturn isEqualToString:@"1"]) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [alert show];
@@ -97,7 +97,7 @@
     
     //[NSKeyedArchiver archiveRootObject:user toFile:[self filePath]];
     
-    //On enregistre
+    //On enregistre via le UserDefaults
     NSLog(@"email:%@, token:%@, fname:%@, lname:%@", newUser.email, newUser.token, newUser.firstname, newUser.lastname);
     
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -123,35 +123,40 @@
 
 
 -(BOOL)isFormDataValid{
-    
+    // test sur le formulaire et sa validite
     NSString *errorMessage = nil;
     UITextField *errorField;
+    // Regex email format
     NSString *emailRegex = @"[a-zA-Z0-9.\\-_]{2,32}@[a-zA-Z0-9.\\-_]{2,32}\.[A-Za-z]{2,4}";
     NSPredicate *regExPredicate =
     [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     BOOL validEmail = [regExPredicate evaluateWithObject:self.email.text];
-    
+    // test email vide
     if([self.email.text isEqualToString:@""])
     {
         errorMessage = @"Please enter email";
         errorField = self.email;
     }
+    // Test regex Ok
     else if (!validEmail)
     {
         errorMessage = @"Please enter a valid email";
         errorField = self.email;
     }
+    // Test password vide
     else if([self.password.text isEqualToString:@""])
     {
         errorMessage = @"Please enter password";
         errorField = self.password;
     }
+    // test firstname vide
     else if([self.firstname.text isEqualToString:@""])
     {
         errorMessage = @"Please enter firstname";
         errorField = self.firstname;
     }
     
+    // Affichage alert d'erreur plus selection du field en erreur
     if (errorMessage) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];

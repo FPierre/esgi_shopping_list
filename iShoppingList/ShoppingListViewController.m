@@ -101,6 +101,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
             NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+            
             NSString *codeReturn = [jsonDict objectForKey:@"code"];
             
             // Si pas d'erreur
@@ -117,6 +118,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
                     // Pas de gestion d'erreur
                 }
             }
+            // Gestion des erreurs
             else if ([codeReturn isEqualToString:@"1"]) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
@@ -199,7 +201,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     NSLog(@"newUser.firstname : %@",newUser.firstname);
     NSLog(@"newUser.lastname : %@",newUser.lastname);
 
-    // On test si il y a un nom et on le met dans le message
+    // On test si il y a un nom et on le met dans le message d'accueil
     if (newUser.firstname != nil) {
         NSMutableString* theString = [NSMutableString string];
         [theString appendFormat:@"Hi !  %@",newUser.firstname];
@@ -209,23 +211,24 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
 
     }
     NSLog(@"%@",self.helloName.text);
-    // Do any additional setup after loading the view from its nib.
     
     // Initialise la source de données de la liste des ShoppingList
     NSMutableArray* lists = [NSMutableArray new];
     self.lists = lists;
     
+    // appel a l'API
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/list.php?token=%@", newUser.token]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSError *error = nil;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-
+    // On test le retour d'erreur
     if (!error) {
+        // On parse le JSON
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         NSString *codeReturn = [jsonDict objectForKey:@"code"];
-
+        // Test du code retour = 0
         if ([codeReturn isEqualToString:@"0"]) {
             NSArray *resultReturn = [jsonDict objectForKey:@"result"];
 

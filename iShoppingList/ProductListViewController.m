@@ -91,13 +91,15 @@ static NSString *const kProductCellId = @"ProductId";
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Product *product = (Product *)[products_ objectAtIndex:indexPath.row];
-        
+        // On cree l'url pour la supression de la liste
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/remove.php?token=%@&id=%@", [standardUserDefaults objectForKey:@"token"], product.Id]];
+        // On lance la requete
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-        
+        // On verifie qu'il n'y a pas d'erreur
         if (!error) {
+            // Parse le JSON
             NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
@@ -117,6 +119,7 @@ static NSString *const kProductCellId = @"ProductId";
                     // Pas de gestion d'erreur
                 }
             }
+            // Test les code retour de l'API
             else if ([codeReturn isEqualToString:@"1"]) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];

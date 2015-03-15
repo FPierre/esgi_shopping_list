@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+//Objet Product
 @interface Product : NSObject {
     @private
     NSString *id_;

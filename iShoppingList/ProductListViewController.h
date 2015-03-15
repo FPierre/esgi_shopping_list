@@ -16,7 +16,8 @@
 
 }
 
-@property (nonatomic, strong) User* User;
+
+@property (nonatomic, strong) User* User; // User connecte
 @property (weak, nonatomic) IBOutlet UILabel *productTitle;
 
 @property (strong, nonatomic) NSArray *products;

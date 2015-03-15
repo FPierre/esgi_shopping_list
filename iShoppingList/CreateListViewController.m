@@ -43,18 +43,22 @@
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     // Ajout d'une ShoppingList
     if (!self.list) {
+        // On cree l'URL
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token=%@&name=%@", [standardUserDefaults objectForKey:@"token"], self.nameTextfield.text]];
+        // On lance la requete
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-        
+        //Test si pas d'erreur
         if (!error) {
+            //Parse le JSON
             NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
             NSString *codeReturn = [jsonDict objectForKey:@"code"];
-            
+            // TEst si code retour Ok
             if ([codeReturn isEqualToString:@"0"]) {
+                //Enregistrement de la list
                 ShoppingList *newList = [ShoppingList new];
                 NSDictionary *result = [jsonDict objectForKey:@"result"];
                 
@@ -65,6 +69,7 @@
                     [self.delegate createListViewControllerDidCreateShoppingList:newList];
                 }
             }
+            // Cas d'erreur de retour de l'API
             else if ([codeReturn isEqualToString:@"1"]) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];

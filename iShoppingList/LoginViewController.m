@@ -154,11 +154,11 @@
 
 
 // Retourne le chemin du fichier
-- (NSString*) filePath {
+/*- (NSString*) filePath {
     NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* documentPath = [documentPaths objectAtIndex:0];
     return [documentPath stringByAppendingPathComponent:@"session.archive"];
-}
+}*/
 
 - (IBAction)onTouchSignUp:(id)sender {
     SignUpViewController* formViewController = [SignUpViewController new];
@@ -167,7 +167,7 @@
 
 //Permet de creer la session avec le user en parametre
 - (void) createSessionWithUser:(User* ) newUser{
-    //On enregistre
+    //On enregistre via le UserDefaults
     NSLog(@"email:%@, token:%@, fname:%@, lname:%@", newUser.email, newUser.token, newUser.firstname, newUser.lastname);
     
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -184,6 +184,7 @@
     
 }
 
+// Sers a cacher le clavier en cas de click hors des champs
 - (IBAction)backgroundClick:(id)sender {
   //  [txtFieldUsername resignFirstResponder];
   //  [txtFieldPassword resignFirstResponder];
