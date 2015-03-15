@@ -19,7 +19,6 @@
 @implementation ProductListViewController
 
 @synthesize productTitle;
-@synthesize delegate = delegate_;
 
 @dynamic User;
 @dynamic products;
@@ -138,15 +137,6 @@ static NSString *const kProductCellId = @"ProductId";
     }
 }
 
-// Selection d'un Product
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Product *product = [self.products objectAtIndex:indexPath.row];
-    CreateProductViewController *viewController = [CreateProductViewController new];
-    viewController.product = product;
-    viewController.delegate = self;
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     id obj = [products_ objectAtIndex:sourceIndexPath.row];
     [products_ removeObjectAtIndex:sourceIndexPath.row];
@@ -224,7 +214,7 @@ static NSString *const kProductCellId = @"ProductId";
                 
                 newProduct.Id = [o objectForKey:@"id"];
                 newProduct.name = [o objectForKey:@"name"];
-                newProduct.quantity = [o objectForKey:@"quantity"];
+                newProduct.quantity = [[o objectForKey:@"quantity"] integerValue];
                 newProduct.price = [[o objectForKey:@"price"] doubleValue];
                 
                 if ([self respondsToSelector:@selector(createProductViewControllerDidCreateProduct:)]) {

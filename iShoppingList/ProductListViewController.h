@@ -8,19 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
-#import "CreateProductViewController.h"
 
-//TEST
-@protocol ProductListViewControllerDelegate <NSObject>
-
-@end
-// FIN TEST
-
-@interface ProductListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CreateProductViewControllerDelegate> {
+@interface ProductListViewController: UIViewController {
 
 @private
     NSMutableArray *products_;
-    __weak id<ProductListViewControllerDelegate> delegate_; // TEST
 
 }
 
@@ -29,7 +21,5 @@
 
 @property (strong, nonatomic) NSArray *products;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (weak, nonatomic) id<ProductListViewControllerDelegate> delegate; // TEST
 
 @end
