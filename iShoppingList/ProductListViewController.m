@@ -86,12 +86,13 @@ static NSString *const kProductCellId = @"ProductId";
 }
 
 // Suppression d'un Product
-// TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    // On recuper le standUserDefaults
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Product *product = (Product *)[products_ objectAtIndex:indexPath.row];
         
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/remove.php?token=%@&id=%@", @"161e936338febc2edc95214098db81a1", product.Id]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/remove.php?token=%@&id=%@", [standardUserDefaults objectForKey:@"token"], product.Id]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
