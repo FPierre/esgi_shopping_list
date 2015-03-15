@@ -37,6 +37,8 @@
     [super didReceiveMemoryWarning];
 }
 
+// TODO: faire une vrai gestion d'erreur
+// TODO: remplacer le token User en dur dans l'URL
 - (IBAction)onTouchAdd:(id)sender {
     if (!self.list) {
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/create.php?token=%@&name=%@", @"161e936338febc2edc95214098db81a1", self.nameTextfield.text]];
