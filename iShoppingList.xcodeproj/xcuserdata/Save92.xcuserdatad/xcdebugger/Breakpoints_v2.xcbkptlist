@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/LoginViewController.m"
-            timestampString = "448050975.476023"
+            timestampString = "448155937.501451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "-loginClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/LoginViewController.m"
-            timestampString = "447874566.268791"
+            timestampString = "448155937.501451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "-loginClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/LoginViewController.m"
-            timestampString = "448051102.273921"
+            timestampString = "448155937.501451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "-loginClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/LoginViewController.m"
-            timestampString = "448051102.273921"
+            timestampString = "448155937.501451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "-loginClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/LoginViewController.m"
-            timestampString = "448051102.273921"
+            timestampString = "448155937.501451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "-loginClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,7 +186,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/LoginViewController.m"
-            timestampString = "448051102.273921"
+            timestampString = "448155937.501451"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "-loginClicked:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iShoppingList/LoginViewController.m"
+            timestampString = "448155937.501451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
@@ -202,27 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/LoginViewController.m"
-            timestampString = "448051102.273921"
+            timestampString = "448155937.501451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "-loginClicked:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iShoppingList/LoginViewController.m"
-            timestampString = "448051102.273921"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "-loginClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -633,7 +633,7 @@
                   symbolName = "-[CreateProductViewController product]"
                   moduleName = "iShoppingList"
                   urlString = "file:///Users/Save92/Documents/ESGI_4IAM/ios/projetSemestre1/iShoppingList/iShoppingList/CreateProductViewController.h"
-                  timestampString = "448154432.959859"
+                  timestampString = "448155938.086816"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "28"
@@ -647,7 +647,7 @@
                   symbolName = "-[CreateProductViewController setProduct:]"
                   moduleName = "iShoppingList"
                   urlString = "file:///Users/Save92/Documents/ESGI_4IAM/ios/projetSemestre1/iShoppingList/iShoppingList/CreateProductViewController.h"
-                  timestampString = "448154432.960079"
+                  timestampString = "448155938.086961"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "28"
@@ -696,11 +696,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iShoppingList/LoginViewController.m"
-            timestampString = "448051102.273921"
+            timestampString = "448155937.501451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "-loginClicked:"
             landmarkType = "5">
          </BreakpointContent>

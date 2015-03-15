@@ -17,8 +17,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="Do0-vU-tTg">
-                    <rect key="frame" x="108" y="108" width="105" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="52" y="108" width="217" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
@@ -26,30 +26,20 @@
                     </connections>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="qxE-m3-gG8">
-                    <rect key="frame" x="108" y="146" width="105" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="52" y="146" width="217" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                     <connections>
                         <action selector="backgroundClick:" destination="-1" eventType="editingDidEndOnExit" id="kUU-dq-UoC"/>
                     </connections>
                 </textField>
-                <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mNL-p0-jXN">
-                    <rect key="frame" x="108" y="196" width="105" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="Login">
-                        <color key="titleColor" red="0.96018781565656564" green="0.96018781565656564" blue="0.96018781565656564" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="loginClicked:" destination="-1" eventType="touchUpInside" id="tIJ-Lz-nWG"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EkI-Tp-XGT">
-                    <rect key="frame" x="126" y="263" width="68" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="tintColor" red="0.34096509930806462" green="0.46449153368687901" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="108" y="308" width="105" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.82921604650406844" green="0.82950253983538724" blue="0.86511600378787878" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Sign In">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -58,18 +48,31 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zPc-4b-WxH">
-                    <rect key="frame" x="139" y="241" width="42" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="139" y="279" width="42" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mNL-p0-jXN">
+                    <rect key="frame" x="108" y="241" width="105" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.55281328914141414" green="0.55281328914141414" blue="0.55281328914141414" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <state key="normal" title="Login">
+                        <color key="titleColor" red="0.96018781565656564" green="0.96018781565656564" blue="0.96018781565656564" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="loginClicked:" destination="-1" eventType="touchUpInside" id="tIJ-Lz-nWG"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <connections>
                 <action selector="backgroundClick:" destination="-1" eventType="touchUpInside" id="fC3-tj-7Gs"/>
             </connections>
-            <point key="canvasLocation" x="80" y="63"/>
+            <point key="canvasLocation" x="-48" y="38"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
