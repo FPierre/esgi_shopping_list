@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -7,8 +7,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateProductViewController">
             <connections>
                 <outlet property="nameTextField" destination="1oG-cO-jRj" id="dA0-ku-4O6"/>
+                <outlet property="nameTextfield" destination="1oG-cO-jRj" id="ZFF-jC-jy4"/>
                 <outlet property="priceTextField" destination="AFc-7G-BKZ" id="thx-2v-J4M"/>
+                <outlet property="priceTextfield" destination="AFc-7G-BKZ" id="4Ui-mE-DcV"/>
                 <outlet property="quantityTextField" destination="rRq-JC-Nvj" id="QfH-tS-MHl"/>
+                <outlet property="quantityTextfield" destination="rRq-JC-Nvj" id="h6V-5R-QKz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

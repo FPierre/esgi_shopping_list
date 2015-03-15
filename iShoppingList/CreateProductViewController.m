@@ -14,7 +14,7 @@
 
 @implementation CreateProductViewController
 
-@synthesize products = product_;
+@synthesize product = product_;
 @synthesize delegate = delegate_;
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -28,27 +28,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.products) {
-        self.nameTextField.text = self.products.name;
-        NSString* price = [NSString stringWithFormat:@"%f", self.products.price];
-        self.priceTextField.text = price;
-        NSString* quantity = [NSString stringWithFormat:@"%lu", (unsigned long)self.products.quantity];
-        self.quantityTextField.text = quantity;
+    if (self.product) {
+        self.nameTextfield.text = self.product.name;
+        NSString* price = [NSString stringWithFormat:@"%f", self.product.price];
+        self.priceTextfield.text = price;
+        NSString* quantity = [NSString stringWithFormat:@"%lu", (unsigned long)self.product.quantity];
+        self.quantityTextfield.text = quantity;
     }
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-
+// TODO: faire une vrai gestion d'erreur
+// TODO: remplacer le token User en dur dans l'URL
+// TODO: remplacer l'Id ShoppingList en dur dans l'URL
 - (IBAction)onTouchAdd:(id)sender {
-    if (!self.products) {
+    if (!self.product) {
         //@TODO voir comment recuperer le token et l'id de la liste
         
-        /*NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/create.php?token=%@&shopping_list_id=%@&name=%@&quantity=%@&price=%@", self.User.token, shoppingListId, self.products.name, self.products.quantity, self.products.price]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/create.php?token=%@&shopping_list_id=%@&name=%@&quantity=%lu&price=%f", @"161e936338febc2edc95214098db81a1", @"0", self.product.name, self.product.quantity, self.product.price]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
@@ -65,23 +65,12 @@
                 
                 newProduct.name = [result objectForKey:@"name"];
                 
-                if ([self.delegate respondsToSelector:@selector(createProductViewControllerDidCreateSProductList:)]) {
-                    NSLog(@"1");
+                if ([self.delegate respondsToSelector:@selector(createProductViewControllerDidCreateProduct:)]) {
                     [self.delegate createProductViewControllerDidCreateProduct:newProduct];
                 }
             }
-        }*/
+        }
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

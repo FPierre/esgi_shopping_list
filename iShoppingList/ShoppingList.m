@@ -26,7 +26,7 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeInteger:self.Id forKey:@"id"];
+    [aCoder encodeObject:self.Id forKey:@"id"];
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.created_date forKey:@"created_date"];
     [aCoder encodeBool:self.completed forKey:@"completed"];
