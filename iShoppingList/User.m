@@ -47,7 +47,7 @@
     return user;
 }
 
-/*- (User *) initWithUser:(User *) user {
+- (User *) initWithUser:(User *) user {
     self = [super init];
     if(self) {
         self.firstname = user.firstname;
@@ -56,7 +56,7 @@
         self.token = user.token;
     }
     return self;
-}*/
+}
 
 
 @end

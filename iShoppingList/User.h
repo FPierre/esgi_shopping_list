@@ -24,6 +24,7 @@
 - (id) initWithCoder:(NSCoder  *) aDecoder;
 - (void) encodeWithCoder:(NSCoder *) aCoder;
 - (User *)createUserWithEmail:(NSString *)email withToken:(NSString *)token withFirstname:(NSString *)firstname withLastname:(NSString *)lastname;
+- (User *) initWithUser:(User *) user;
 
 
 @end

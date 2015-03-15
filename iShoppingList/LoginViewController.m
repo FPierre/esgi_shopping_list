@@ -92,18 +92,24 @@
         {
             [self alertStatus:@"Please enter both Username and Password" :@"Login Failed!"];
         } else {
+            NSLog(@"Login Clicked!");
             // on créer l'url avec les parametres
             NSURL* URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/account/login.php?email=%@&password=%@", self.txtFieldEmail.text , self.txtFieldPassword.text]];
+            NSLog(@"1");
             // On lance la requete
             NSURLRequest* requestLogin=[NSURLRequest requestWithURL:URL];
             NSError* error = nil;
+            NSLog(@"2");
             // On recuperer les donnees de retour
             NSData* data = [NSURLConnection sendSynchronousRequest:requestLogin returningResponse:nil error:&error];
+            NSLog(@"2,5");
             if(!error) {
+                NSLog(@"3");
                 // On parse le JSON
                 NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 NSData* jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
                 NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+                NSLog(@"4");
                 NSLog(@"jsonDict:%@", jsonDict);
                 // On recupere le code retour de la requete (code)
                 NSString* codeReturn = [jsonDict objectForKey:@"code"];
@@ -129,6 +135,7 @@
                     [self.navigationController pushViewController:formViewController animated:YES];
                     
                 } else {
+                    NSLog(@"5");
                     NSString *errorMessage = nil;
                     UITextField *errorField;
                     
@@ -160,8 +167,6 @@
 
 //Permet de creer la session avec le user en parametre
 - (void) createSessionWithUser:(User* ) newUser{
-    
-    
     //On enregistre
     NSLog(@"email:%@, token:%@, fname:%@, lname:%@", newUser.email, newUser.token, newUser.firstname, newUser.lastname);
     

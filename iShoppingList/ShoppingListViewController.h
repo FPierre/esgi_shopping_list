@@ -14,10 +14,13 @@
     
 @private
     NSMutableArray *lists_;
+    //User *myUser_;
+    NSString *token;
     
 }
 
-@property (nonatomic, strong) User* User;
+//@property (nonatomic, strong) User* myUser;
+@property (strong, nonatomic) NSString *token;
 @property (weak, nonatomic) IBOutlet UILabel *helloName;
 @property (weak, nonatomic) IBOutlet UILabel *userToken;
 

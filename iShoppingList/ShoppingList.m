@@ -17,7 +17,7 @@
 - (id) initWithCoder:(NSCoder *) aDecoder {
     self = [super init];
     if(self) {
-        self.Id = [aDecoder decodeIntegerForKey:@"id"];
+        self.Id = [aDecoder decodeObjectForKey:@"id"];
         self.name = [aDecoder decodeObjectForKey:@"name"];
         self.created_date = [aDecoder decodeObjectForKey:@"created_date"];
         self.completed = [aDecoder decodeObjectForKey:@"completed"];

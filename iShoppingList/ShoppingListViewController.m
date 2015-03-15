@@ -20,7 +20,7 @@
 
 @synthesize helloName;
 
-@dynamic User;
+@dynamic token;
 @dynamic lists;
 
 static NSString *const kShoppingListCellId = @"ShoppingListId";
@@ -44,6 +44,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     
     return self;
 }
+
 
 // Getter
 - (NSArray *)lists {
@@ -88,9 +89,10 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
 // TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
         ShoppingList *list = (ShoppingList *)[lists_ objectAtIndex:indexPath.row];
-        
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/remove.php?token=%@&id=%@", @"161e936338febc2edc95214098db81a1", list.Id]];
+        //NSLog(@"self.User.token: %@", self.myUser.token );
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/remove.php?token=%@&id=%@", [standardUserDefaults objectForKey:@"token"], list.Id]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
@@ -190,7 +192,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
         [alert show];
     }
     // On cree un nouvel User et on lui copy les donnees
-    User * newUser = [User new];
+    User *newUser = [User new];
     newUser = [newUser createUserWithEmail:valEmail withToken:valToken withFirstname:valFirstName withLastname:valLastName];
     NSLog(@"newUser.email:%@",newUser.email);
     NSLog(@"newUser.token : %@",newUser.token);
@@ -213,7 +215,7 @@ static NSString *const kShoppingListCellId = @"ShoppingListId";
     NSMutableArray* lists = [NSMutableArray new];
     self.lists = lists;
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/list.php?token=%@", @"161e936338febc2edc95214098db81a1"]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/shopping_list/list.php?token=%@", newUser.token]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSError *error = nil;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
