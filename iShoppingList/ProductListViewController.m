@@ -7,10 +7,10 @@
 //
 
 #import "ProductListViewController.h"
+#import "Product.h"
+#import "CreateProductViewController.h"
 #import "User.h"
 #import "LoginViewController.h"
-#import "CreateProductViewController.h"
-#import "Product.h"
 
 @interface ProductListViewController ()
 
@@ -19,6 +19,7 @@
 @implementation ProductListViewController
 
 @synthesize productTitle;
+@synthesize delegate = delegate_;
 
 @dynamic User;
 @dynamic products;
@@ -27,7 +28,7 @@ static NSString *const kProductCellId = @"ProductId";
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        self.title = @"Products List";
+        self.title = @"Product";
         
         NSMutableArray *rightButtons = [NSMutableArray new];
         
@@ -46,15 +47,17 @@ static NSString *const kProductCellId = @"ProductId";
     return self;
 }
 
-
+// Getter
 - (NSArray *)products {
     return products_;
 }
 
+// Setter
 - (void)setProducts:(NSArray *)products {
     products_ = [[NSMutableArray alloc] initWithArray:products];
 }
 
+// Bouton "+" d'ajout d'un Product
 - (void)onTouchAdd {
     CreateProductViewController *viewController = [CreateProductViewController new];
     viewController.delegate = self;
@@ -62,70 +65,110 @@ static NSString *const kProductCellId = @"ProductId";
 }
 
 - (void)onTouchEdit {
-    self.productsTableView.editing = !self.productsTableView.editing;
+    self.tableView.editing = !self.tableView.editing;
 }
 
-- (NSInteger)productsTableView:(UITableView *)productsTableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.products count];
 }
 
-- (UITableViewCell *)productsTableView:(UITableView *)productsTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [productsTableView dequeueReusableCellWithIdentifier:kProductCellId];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kProductCellId];
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kProductCellId];
     }
     
-    Product *products = [self.products objectAtIndex:indexPath.row];
+    Product *product = [self.products objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = products.name;
+    cell.textLabel.text = product.name;
     
     return cell;
 }
 
-- (void)productsTableView:(UITableView *)productsTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+// Suppression d'un Product
+// TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [products_ removeObjectAtIndex:indexPath.row];
-        [self.productsTableView reloadData];
+        Product *product = (Product *)[products_ objectAtIndex:indexPath.row];
+        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/remove.php?token=%@&id=%@", @"161e936338febc2edc95214098db81a1", product.Id]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        NSError *error = nil;
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+        
+        if (!error) {
+            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+            NSString *codeReturn = [jsonDict objectForKey:@"code"];
+            
+            // Si pas d'erreur
+            if ([codeReturn isEqualToString:@"0"]) {
+                NSString *resultReturn = [jsonDict objectForKey:@"result"];
+                
+                // Réussite de la suppression
+                if ([resultReturn isEqualToString:@"1"]) {
+                    [products_ removeObjectAtIndex:indexPath.row];
+                    [self.tableView reloadData];
+                }
+                // Echec de la suppression
+                else if ([resultReturn isEqualToString:@"0"]) {
+                    // Pas de gestion d'erreur
+                }
+            }
+            else if ([codeReturn isEqualToString:@"1"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else if ([codeReturn isEqualToString:@"4"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Invalid token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else if ([codeReturn isEqualToString:@"5"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Internal server error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else if ([codeReturn isEqualToString:@"6"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Unauthorized action" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+        }
+
     }
 }
 
-- (void)productsTableView:(UITableView *)productsTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+// Selection d'un Product
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Product *product = [self.products objectAtIndex:indexPath.row];
     CreateProductViewController *viewController = [CreateProductViewController new];
-    viewController.products = product;
+    viewController.product = product;
     viewController.delegate = self;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)productsTableView:(UITableView *)productsTableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     id obj = [products_ objectAtIndex:sourceIndexPath.row];
     [products_ removeObjectAtIndex:sourceIndexPath.row];
     [products_ insertObject:obj atIndex:destinationIndexPath.row];
 }
 
-- (void)createProductViewControllerDidCreateProduct:(Product *)products {
-    NSLog(@"2");
-    [products_ addObject:products];
-    NSLog(@"3");
-    NSLog(@"%@", products_);
-    [self.productsTableView reloadData];
+- (void)createProductViewControllerDidCreateProduct:(Product *)product {
+    [products_ addObject:product];
+    [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
 }
 
 - (void)createProductViewControllerDidEditProduct:(Product *)product {
-    [self.productsTableView reloadData];
+    [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
 }
 
+// TODO: enlever le token en dur dans l'URL et mettre celui de l'utilisateur courant
+// TODO: enlever l'Id de la Shopping List en dur dans l'URL
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    // Initialise la source de données de la liste des ShoppingList
-    NSMutableArray* products = [NSMutableArray new];
-    self.products = products;
-    
+
     // On recuper le standUserDefaults
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     // On initialise les vatiables pour recuperer les valeurs du standarUserDefaults
@@ -158,22 +201,58 @@ static NSString *const kProductCellId = @"ProductId";
     NSLog(@"newUser.firstname : %@",newUser.firstname);
     NSLog(@"newUser.lastname : %@",newUser.lastname);
     
-    // Do any additional setup after loading the view from its nib.
+    // Initialise la source de données de la liste des Products
+    NSMutableArray* products = [NSMutableArray new];
+    self.products = products;
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://appspaces.fr/esgi/shopping_list/product/list.php?token=%@&id=%@", @"161e936338febc2edc95214098db81a1", @"400"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+    
+    if (!error) {
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+        NSString *codeReturn = [jsonDict objectForKey:@"code"];
+        
+        if ([codeReturn isEqualToString:@"0"]) {
+            NSArray *resultReturn = [jsonDict objectForKey:@"result"];
+            
+            for (NSDictionary *o in resultReturn) {
+                Product *newProduct = [Product new];
+                
+                newProduct.Id = [o objectForKey:@"id"];
+                newProduct.name = [o objectForKey:@"name"];
+                newProduct.quantity = [o objectForKey:@"quantity"];
+                newProduct.price = [[o objectForKey:@"price"] doubleValue];
+                
+                if ([self respondsToSelector:@selector(createProductViewControllerDidCreateProduct:)]) {
+                    [self createProductViewControllerDidCreateProduct:newProduct];
+                }
+            }
+        }
+        else if ([codeReturn isEqualToString:@"1"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Missing required parameter(s)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        else if ([codeReturn isEqualToString:@"4"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Invalid token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        else if ([codeReturn isEqualToString:@"5"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Internal server error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        else if ([codeReturn isEqualToString:@"6"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Unauthorized action" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

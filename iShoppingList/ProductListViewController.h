@@ -7,18 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CreateProductViewController.h"
 #import "User.h"
+#import "CreateProductViewController.h"
 
+//TEST
+@protocol ProductListViewControllerDelegate <NSObject>
+
+@end
+// FIN TEST
 
 @interface ProductListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CreateProductViewControllerDelegate> {
+
 @private
     NSMutableArray *products_;
+    __weak id<ProductListViewControllerDelegate> delegate_; // TEST
+
 }
 
 @property (nonatomic, strong) User* User;
-@property (strong, nonatomic) NSArray *products;
-@property (weak, nonatomic) IBOutlet UITableView *productsTableView;
 @property (weak, nonatomic) IBOutlet UILabel *productTitle;
+
+@property (strong, nonatomic) NSArray *products;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) id<ProductListViewControllerDelegate> delegate; // TEST
 
 @end
